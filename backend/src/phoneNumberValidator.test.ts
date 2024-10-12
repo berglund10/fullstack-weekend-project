@@ -17,7 +17,7 @@ test("should return false for a too long mobile number", () => {
     deepEqual(result, false);
 })
 
-test.skip("should return false for incomplete mobile number format", () => {
+test("should return false for incomplete mobile number format", () => {
     const result = validateNumber("0784002141");
     deepEqual(result, false);
 })
