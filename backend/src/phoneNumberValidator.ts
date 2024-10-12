@@ -25,7 +25,6 @@ export function validateNumber(mobilePhoneNumber: string) {
 }
 
 function formatNumber(mobilePhoneNumber: string) {
-    
   if (
     mobilePhoneNumber[0] === "0" &&
     mobilePhoneNumber[1] === "0" &&
@@ -33,6 +32,14 @@ function formatNumber(mobilePhoneNumber: string) {
     mobilePhoneNumber[3] === "6"
   ) {
     return mobilePhoneNumber.replace("0046", "0");
+  }
+
+  if (
+    mobilePhoneNumber[0] === "+" &&
+    mobilePhoneNumber[1] === "4" &&
+    mobilePhoneNumber[2] === "6"
+  ) {
+    return mobilePhoneNumber.replace("+46", "0");
   }
 
   return mobilePhoneNumber;

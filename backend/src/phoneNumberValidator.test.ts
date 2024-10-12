@@ -33,11 +33,11 @@ test("should return true for 0046 format", () => {
 });
 
 test("should return false for 0047 format", () => {
-    const result = validateNumber("0047704778899");
-    deepEqual(result, false);
-  });
+  const result = validateNumber("0047704778899");
+  deepEqual(result, false);
+});
 
-test.skip("should return true for +46 format", () => {
+test("should return true for +46 format", () => {
   const result = validateNumber("+46704778899");
   deepEqual(result, true);
 });
