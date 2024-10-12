@@ -1,6 +1,12 @@
 export function validateNumber(mobilePhoneNumber: string) {
   const fMobilePhoneNumber = formatNumber(mobilePhoneNumber);
 
+  if (fMobilePhoneNumber[0] !== "0") {
+    return false;
+  }
+  if(fMobilePhoneNumber[1] !== "7") {
+    return false;
+  }
   if (fMobilePhoneNumber.length === 0) {
     return false;
   }
@@ -25,10 +31,9 @@ export function validateNumber(mobilePhoneNumber: string) {
 }
 
 function formatNumber(mobilePhoneNumber: string) {
-
-    while (mobilePhoneNumber.includes(" ")) {
-        mobilePhoneNumber = mobilePhoneNumber.replace(" ", "");
-      }
+  while (mobilePhoneNumber.includes(" ")) {
+    mobilePhoneNumber = mobilePhoneNumber.replace(" ", "");
+  }
 
   if (
     mobilePhoneNumber[0] === "0" &&

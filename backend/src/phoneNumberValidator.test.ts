@@ -49,6 +49,16 @@ test("should return true for 070/072/073/076/079", () => {
 
 test("should allow spaces in mobile number", () => {
   const result = validateNumber("070 477 88 99");
-  console.log("resulutet var: " + result)
   deepEqual(result, true);
 });
+
+test("the first number should be 0", () => {
+  const result = validateNumber("1734002141");
+  deepEqual(result, false);
+});
+
+
+test("the second number should be 7", () => {
+    const result = validateNumber("0834002141");
+    deepEqual(result, false);
+  });
