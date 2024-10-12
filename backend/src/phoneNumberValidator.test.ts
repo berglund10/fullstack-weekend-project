@@ -12,7 +12,7 @@ test("should return false for a too short mobile number", () => {
     deepEqual(result, false);
 })
 
-test.skip("should return false for a too long mobile number", () => {
+test("should return false for a too long mobile number", () => {
     const result = validateNumber("0734001337123123");
     deepEqual(result, false);
 })
