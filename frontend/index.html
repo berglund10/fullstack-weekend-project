@@ -5,9 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Simple fullstack app</title>
     <script src="dist/index.js" defer></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
   </head>
   <body>
-    <p>More info soon...</p>
-    <p id="fromJS"></p>
+    <form id="mobilePhoneNumberForm">
+      <fieldset>
+        <label>
+          Mobile phone number
+          <input id="mobilePhoneNumber" name="mobile-phone-number" placeholder="Enter number" />
+        </label>
+      </fieldset>
+      <input type="submit" value="Subscribe" />
+    </form>
+    <p id="messageFromBackend"></p>
   </body>
 </html>
