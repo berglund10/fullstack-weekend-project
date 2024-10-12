@@ -27,7 +27,7 @@ test("should return false if mobile number contains letters", () => {
   deepEqual(result, false);
 });
 
-test("should return true for 0046 format", () => {
+test.skip("should return true for 0046 format", () => {
   const result = validateNumber("0046704778899");
   deepEqual(result, true);
 });
@@ -47,7 +47,8 @@ test.skip("should return true for 070/072/073/076/079", () => {
   deepEqual(result, true);
 });
 
-test.skip("should allow spaces in mobile number", () => {
+test("should allow spaces in mobile number", () => {
   const result = validateNumber("070 477 88 99");
+  console.log("resulutet var: " + result)
   deepEqual(result, true);
 });

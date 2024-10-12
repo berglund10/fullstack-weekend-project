@@ -25,6 +25,11 @@ export function validateNumber(mobilePhoneNumber: string) {
 }
 
 function formatNumber(mobilePhoneNumber: string) {
+
+    while (mobilePhoneNumber.includes(" ")) {
+        mobilePhoneNumber = mobilePhoneNumber.replace(" ", "");
+      }
+
   if (
     mobilePhoneNumber[0] === "0" &&
     mobilePhoneNumber[1] === "0" &&
