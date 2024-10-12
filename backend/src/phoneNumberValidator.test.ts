@@ -7,7 +7,7 @@ test("empty mobile number should return false", () => {
     deepEqual(result, false);
 })
 
-test.skip("should return false for a too short mobile number", () => {
+test("should return false for a too short mobile number", () => {
     const result = validateNumber("073400");
     deepEqual(result, false);
 })
