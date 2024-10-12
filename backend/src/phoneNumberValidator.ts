@@ -1,22 +1,39 @@
 export function validateNumber(mobilePhoneNumber: string) {
-  if (mobilePhoneNumber.length === 0) {
+  const fMobilePhoneNumber = formatNumber(mobilePhoneNumber);
+
+  if (fMobilePhoneNumber.length === 0) {
     return false;
   }
-  if (mobilePhoneNumber.length < 10) {
+  if (fMobilePhoneNumber.length < 10) {
     return false;
   }
-  if (mobilePhoneNumber.length > 10) {
+  if (fMobilePhoneNumber.length > 10) {
     return false;
   }
 
-  if (!["0", "2", "3", "6", "9"].includes(mobilePhoneNumber[2])) {
+  if (!["0", "2", "3", "6", "9"].includes(fMobilePhoneNumber[2])) {
     return false;
   }
 
-  for(let i = 0; i < mobilePhoneNumber.length; i++) {
-    if(isNaN(Number(mobilePhoneNumber[i]))) {
-        return false;
+  for (let i = 0; i < fMobilePhoneNumber.length; i++) {
+    if (isNaN(Number(fMobilePhoneNumber[i]))) {
+      return false;
     }
   }
+
   return true;
+}
+
+function formatNumber(mobilePhoneNumber: string) {
+    
+  if (
+    mobilePhoneNumber[0] === "0" &&
+    mobilePhoneNumber[1] === "0" &&
+    mobilePhoneNumber[2] === "4" &&
+    mobilePhoneNumber[3] === "6"
+  ) {
+    return mobilePhoneNumber.replace("0046", "0");
+  }
+
+  return mobilePhoneNumber;
 }
