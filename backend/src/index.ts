@@ -1,5 +1,6 @@
 import http, { IncomingMessage, ServerResponse } from "node:http";
 import { validateNumber } from "./phoneNumberValidator";
+import { sendSMS } from "./sendSMS";
 
 const app = http.createServer((req: IncomingMessage, res: ServerResponse) => {
   if (req.method !== "POST") {
@@ -20,7 +21,11 @@ const app = http.createServer((req: IncomingMessage, res: ServerResponse) => {
   });
 
   req.on("end", () => {
-    if (validateNumber(JSON.parse(body).MobilePhoneNumber)) {
+    const number = JSON.parse(body).MobilePhoneNumber;
+    if (validateNumber(number)) {
+/*       if (number === "MY_NUMBER") {
+        sendSMS();
+      } */
       res.end(
         JSON.stringify({
           message:
