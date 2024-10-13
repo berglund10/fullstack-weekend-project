@@ -26,8 +26,9 @@ export async function sendSMS() {
 
   const params = new URLSearchParams(data).toString();
 
+
   try {
-    const response = await fetch(url as string, {
+    const response = await fetch("url" as string, {
       method: "POST",
       body: params,
       headers: {
@@ -40,9 +41,11 @@ export async function sendSMS() {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
-    const json = await response.json();
-    console.log(json);
   } catch (error) {
-    console.error("Error sending SMS:", error);
+    if(error instanceof Error) {
+      throw new Error(`Something went wrong with the fetch: ${error.message}`);
+    }
+    throw new Error("An unknown error occurred during the fetch");
+
   }
 }
