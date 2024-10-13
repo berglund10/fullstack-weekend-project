@@ -9,7 +9,7 @@ Valid prefixes for mobile numbers are 070, 072, 073, 076, and 079. (If its start
 The number must be exactly 10 digits long (excluding country code).
 These rules were established at the beginning of the project and can be found in src/phoneNumberValidator.test.ts file.
 
-Run tests - npm t
+##Run tests - npm t
 Start backend - npm run dev (localhost:3000)
 Start client - npm run build, npm run start (localhost:8080)
 
