@@ -20,29 +20,24 @@ const app = http.createServer(
       if (typeof mobileNumber !== "string") {
         throw new Error("Invalid input: Mobile phone number must be a string.");
       }
-      if (validateMobileNumber(mobileNumber)) {
+      if (!validateMobileNumber(mobileNumber)) {
         sendResponse(
           res,
-          200,
-          "Your mobile number has been successfully validated. Please expect a text message shortly",
+          400,
+          "Mobile number is invalid. Please ensure you have entered a correct number.",
         );
         return;
       }
 
       sendResponse(
         res,
-        400,
-        "Mobile number is invalid. Please ensure you have entered a correct number.",
+        200,
+        "Your mobile number has been successfully validated. Please expect a text message shortly",
       );
-
     } catch (error) {
       if (error instanceof Error) {
         console.log(error.message);
-        sendResponse(
-          res,
-          400,
-          "Invalid request format. Please ensure the data is correct.",
-        );
+        sendResponse(res, 400, error.message);
         return;
       }
       console.error("Non-standard error:", error);
