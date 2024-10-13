@@ -15,12 +15,12 @@ const app = http.createServer(
 
     try {
       const body = await readRequestBody(req);
-      const number = JSON.parse(body).MobilePhoneNumber;
+      const mobileNumber = JSON.parse(body).MobilePhoneNumber;
 
-      if (typeof number !== "string") {
+      if (typeof mobileNumber !== "string") {
         throw new Error("Invalid input: Mobile phone number must be a string.");
       }
-      if (validateMobileNumber(number)) {
+      if (validateMobileNumber(mobileNumber)) {
         sendResponse(
           res,
           200,
@@ -34,7 +34,7 @@ const app = http.createServer(
         400,
         "Mobile number is invalid. Please ensure you have entered a correct number.",
       );
-      
+
     } catch (error) {
       if (error instanceof Error) {
         console.log(error.message);
