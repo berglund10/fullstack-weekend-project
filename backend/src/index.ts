@@ -1,71 +1,55 @@
 import http, { IncomingMessage, ServerResponse } from "node:http";
 import { validateMobileNumber } from "./phoneNumberValidator";
 import { sendSMS } from "./sendSMS";
+import { readRequestBody, sendResponse } from "./http.helpers";
 
-const app = http.createServer((req: IncomingMessage, res: ServerResponse) => {
-  if (req.method !== "POST") {
-    res.writeHead(405, { "Content-Type": "application/json" });
-    res.end(JSON.stringify({ message: "Method Not Allowed" }));
-    return;
-  }
+const app = http.createServer(
+  async (req: IncomingMessage, res: ServerResponse) => {
+    res.setHeader("Content-Type", "application/json");
+    res.setHeader("Access-Control-Allow-Origin", "http://localhost:8080");
 
-  res.setHeader("Content-Type", "application/json");
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:8080");
+    if (req.method !== "POST") {
+      sendResponse(res, 405, "Method Not Allowed");
+      return;
+    }
 
-  let body = "";
-
-  req.on("data", (chunk) => {
-    body += chunk.toString();
-  });
-
-  req.on("end", async () => {
     try {
+      const body = await readRequestBody(req);
       const number = JSON.parse(body).MobilePhoneNumber;
+
       if (typeof number !== "string") {
         throw new Error("Invalid input: Mobile phone number must be a string.");
       }
       if (validateMobileNumber(number)) {
-        if (number === "0734001337") {
-          await sendSMS();
-        }
-        res.statusCode = 200;
-        res.end(
-          JSON.stringify({
-            message:
-              "Your mobile number has been successfully validated. Please expect a text message shortly",
-          }),
+        sendResponse(
+          res,
+          200,
+          "Your mobile number has been successfully validated. Please expect a text message shortly",
         );
         return;
       }
-      res.statusCode = 400;
-      res.end(
-        JSON.stringify({
-          message:
-            "Mobile number is invalid. Please ensure you have entered a correct number.",
-        }),
+
+      sendResponse(
+        res,
+        400,
+        "Mobile number is invalid. Please ensure you have entered a correct number.",
       );
+      
     } catch (error) {
       if (error instanceof Error) {
         console.log(error.message);
-        res.statusCode = 400;
-        res.end(
-          JSON.stringify({
-            message:
-              "Invalid request format. Please ensure the data is correct.",
-          }),
+        sendResponse(
+          res,
+          400,
+          "Invalid request format. Please ensure the data is correct.",
         );
         return;
       }
       console.error("Non-standard error:", error);
-      res.statusCode = 500;
-      res.end(
-        JSON.stringify({
-          message: "An unexpected error occurred.",
-        }),
-      );
+      sendResponse(res, 500, "An unexpected error occurred.");
     }
-  });
-});
+  },
+);
 
 app.listen(3000, () => {
   console.log("app is listen on port 3000");
