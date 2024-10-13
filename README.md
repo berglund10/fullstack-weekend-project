@@ -13,4 +13,6 @@ This project is a app for checking whether a mobile phone number is valid accord
 - Start backend - npm run dev (localhost:3000)
 - Start client - npm run build, npm run start (localhost:8080)
 
-New technology used: https://46elks.se/docs/send-sms 
+The new technology used in this project is the 46elks API. I utilized Basic Auth for authentication and tested sending SMS messages to mobile phones via my HTTP server.
+
+Documentation: https://46elks.se/docs/send-sms
