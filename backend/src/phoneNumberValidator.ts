@@ -1,5 +1,12 @@
-export function validateNumber(mobilePhoneNumber: string) {
+export function validateMobileNumber(mobilePhoneNumber: string) {
   const fMobilePhoneNumber = formatNumber(mobilePhoneNumber);
+
+  for (const char of fMobilePhoneNumber) {
+    if (isNaN(Number(char))) {
+      return false;
+    }
+  }
+
   if (
     fMobilePhoneNumber.length !== 10 ||
     fMobilePhoneNumber[0] !== "0" ||
@@ -12,16 +19,11 @@ export function validateNumber(mobilePhoneNumber: string) {
     return false;
   }
 
-  for (const char of fMobilePhoneNumber) {
-    if (isNaN(Number(char))) {
-      return false;
-    }
-  }
-
   return true;
 }
 
 function formatNumber(mobilePhoneNumber: string) {
+
   while (mobilePhoneNumber.includes(" ")) {
     mobilePhoneNumber = mobilePhoneNumber.replace(" ", "");
   }

@@ -1,5 +1,5 @@
 import http, { IncomingMessage, ServerResponse } from "node:http";
-import { validateNumber } from "./phoneNumberValidator";
+import { validateMobileNumber } from "./phoneNumberValidator";
 import { sendSMS } from "./sendSMS";
 
 const app = http.createServer((req: IncomingMessage, res: ServerResponse) => {
@@ -10,18 +10,21 @@ const app = http.createServer((req: IncomingMessage, res: ServerResponse) => {
   }
 
   res.setHeader("Content-Type", "application/json");
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:8080")
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:8080");
 
   let body = "";
 
   req.on("data", (chunk) => {
-    body += chunk;
+    body += chunk.toString();
   });
 
   req.on("end", async () => {
     try {
       const number = JSON.parse(body).MobilePhoneNumber;
-      if (validateNumber(number)) {
+      if (typeof number !== "string") {
+        throw new Error("Invalid input: Mobile phone number must be a string.");
+      }
+      if (validateMobileNumber(number)) {
         if (number === "0734001337") {
           await sendSMS();
         }
@@ -41,24 +44,24 @@ const app = http.createServer((req: IncomingMessage, res: ServerResponse) => {
             "Mobile number is invalid. Please ensure you have entered a correct number.",
         }),
       );
-
     } catch (error) {
-      if(error instanceof Error) {
+      if (error instanceof Error) {
         console.log(error.message);
         res.statusCode = 400;
         res.end(
-          JSON.stringify({ 
-            message: "Invalid request format. Please ensure the data is correct.",
-          })
-        )
+          JSON.stringify({
+            message:
+              "Invalid request format. Please ensure the data is correct.",
+          }),
+        );
         return;
       }
       console.error("Non-standard error:", error);
       res.statusCode = 500;
       res.end(
         JSON.stringify({
-          message: "An unexpected error occurred."
-        })
+          message: "An unexpected error occurred.",
+        }),
       );
     }
   });
