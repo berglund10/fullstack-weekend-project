@@ -1,4 +1,5 @@
 ![mobilephonevalidator](https://github.com/user-attachments/assets/9892a9f4-d690-42d6-98d0-8a2fe2d09607)
+[Planning board](https://github.com/users/berglund10/projects/2)
 # Mobile Number Validator
 
 This project is a app for checking whether a mobile phone number is valid according to the guidelines set by The Swedish Post and Telecom Authority(https://pts.se/). If the number passes validation, a message is sent to the number via the 46elks API.
